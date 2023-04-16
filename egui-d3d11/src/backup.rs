@@ -190,7 +190,7 @@ impl InnerState {
             ),
         );
         ctx.PSSetShader(
-            &expect!(self.pixel_shader.take(), "Failed to set pixel shader"),
+            self.pixel_shader.take().as_ref(),
             Some(
                 &self
                     .pixel_shader_instances
@@ -203,7 +203,7 @@ impl InnerState {
         self.pixel_shader_instances.release();
 
         ctx.VSSetShader(
-            &expect!(self.vertex_shader.take(), "Failed to set vertex shader"),
+            self.vertex_shader.take().as_ref(),
             Some(
                 &self
                     .vertex_shader_instances
@@ -238,7 +238,7 @@ impl InnerState {
         ctx.VSSetConstantBuffers(0, Some(&constant_buffers));
         ctx.IASetPrimitiveTopology(self.primitive_topology);
         ctx.IASetIndexBuffer(
-            &expect!(self.index_buffer.take(), "Failed to set index buffer"),
+            self.index_buffer.take().as_ref(),
             self.index_buffer_format,
             self.index_buffer_offest,
         );
